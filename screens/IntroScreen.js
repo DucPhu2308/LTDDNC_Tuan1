@@ -5,7 +5,7 @@ const IntroScreen = ({ navigation }) => {
   useEffect(() => {
     const timer = setTimeout(() => {
       navigation.navigate('Login');
-    }, 1000); // Chuyển sang HomeScreen sau 10 giây
+    }, 10000); // Chuyển sang HomeScreen sau 10 giây
 
     return () => clearTimeout(timer); // Xóa timer khi component unmount
   }, [navigation]);
