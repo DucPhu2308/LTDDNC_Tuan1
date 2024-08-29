@@ -4,8 +4,8 @@ import { View, Text, StyleSheet } from 'react-native';
 const IntroScreen = ({ navigation }) => {
   useEffect(() => {
     const timer = setTimeout(() => {
-      navigation.navigate('Home');
-    }, 10000); // Chuyển sang HomeScreen sau 10 giây
+      navigation.navigate('Login');
+    }, 1000); // Chuyển sang HomeScreen sau 10 giây
 
     return () => clearTimeout(timer); // Xóa timer khi component unmount
   }, [navigation]);
