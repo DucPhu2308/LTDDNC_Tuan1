@@ -20,6 +20,11 @@ class AuthAPI {
         const url = '/auth/forgot-password';
         return axiosClient.post(url, data);
     }
+
+    static async resetPassword(data) {
+        const url = '/auth/reset-password';
+        return axiosClient.post(url, data);
+    }
 }
 
 export default AuthAPI;

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { View, Text, StyleSheet, TextInput, Button, Pressable } from 'react-native';
 import AuthAPI from "../API/AuthAPI";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const RegisterScreen = ({ navigation }) => {
     const [email, setEmail] = useState('');
@@ -20,7 +21,8 @@ const RegisterScreen = ({ navigation }) => {
         AuthAPI.register(data)
             .then(response => {
                 console.log(response.data);
-                navigation.navigate('Home');
+                AsyncStorage.setItem('email', email);
+                navigation.navigate('FillOtp');
             })
             .catch(error => {
                 console.error(error);

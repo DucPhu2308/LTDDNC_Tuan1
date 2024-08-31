@@ -46,6 +46,13 @@ const LoginScreen = ({navigation}) => {
         </Pressable>
       </Text>
 
+      <Text style={styles.subText}>
+        
+        <Pressable onPress={() => navigation.navigate('FillEmail')}>
+          <Text style={{color: 'blue'}}> Quên mật khẩu?</Text>
+        </Pressable>
+      </Text>
+
     </View>
   );
 }
