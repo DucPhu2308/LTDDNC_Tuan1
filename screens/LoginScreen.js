@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { View, Text, StyleSheet, TextInput, Button, Pressable } from 'react-native';
 import AuthAPI from "../API/AuthAPI";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const LoginScreen = ({navigation}) => {
   const [email, setEmail] = useState('');
@@ -16,11 +17,13 @@ const LoginScreen = ({navigation}) => {
     AuthAPI.login(data)
       .then(response => {
         console.log(response.data);
-        navigation.navigate('Home');
+        AsyncStorage.setItem('token', response.data.token);
+        AsyncStorage.setItem('user', JSON.stringify(response.data.user));
+        navigation.replace('Nav');
       })
       .catch(error => {
         console.error(error); 
-        setError(error.response.data.message);
+        setError(error.response?.data.message);
       });
   }
 
