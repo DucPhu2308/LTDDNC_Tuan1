@@ -1,9 +1,13 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import React, { useState } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { View, Text, StyleSheet, FlatList } from 'react-native';
+import PostAPI from '../API/PostAPI';
+import PostItem from '../components/PostItem';
 
 const HomeScreen = () => {
   const [user, setUser] = useState(null);
+  const [posts, setPosts] = useState([]);
+
   AsyncStorage.getItem('user')
     .then(data => {
       setUser(JSON.parse(data));
@@ -11,10 +15,28 @@ const HomeScreen = () => {
     .catch(error => {
       console.error(error);
     });
+
+  useEffect(() => {
+    const getAllPost = async () => {
+      try {
+        const response = await PostAPI.getAllPost();
+        console.log(response.data);
+        setPosts(response.data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    getAllPost();
+  }, []);
   return (
-    <View style={styles.container}>
-      <Text style={styles.text}>Trang chủ</Text>
-      <Text>{user && ('Chào ' + user.firstName + ' ' + user.lastName + '!')}</Text>
+    <View>
+      {/* <Text style={styles.text}>Trang chủ</Text>
+      <Text>{user && ('Chào ' + user.firstName + ' ' + user.lastName + '!')}</Text> */}
+      <FlatList
+        data={posts}
+        keyExtractor={item => item._id}
+        renderItem={({ item }) => <PostItem post={item} />}
+      />
     </View>
   );
 };
